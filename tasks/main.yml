@@ -62,7 +62,7 @@
   - "{{nodeapps}}"
 
 - name: create init.d files
-  shell: initd-forever -a {{item.dir}}{{item.app}} -n {{item.id}} -e {{node_env}}
+  shell: initd-forever -a {{item.app}} -n {{item.id}} -e {{node_env}} -d {{item.dir}}
   with_items: "{{nodeapps}}"
 
 - name: Make new init.d files excutable
