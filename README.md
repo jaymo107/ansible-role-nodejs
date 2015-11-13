@@ -8,6 +8,8 @@ An Ansible role that installs nodejs and runs default or your application on Ubu
 
 Node packages come from here; https://github.com/nodesource/distributions
 
+REQUIRES git
+
 #### Role Variables
 
 Available variables are listed below, along with default values:
@@ -30,7 +32,7 @@ nodeapps:
 ####Required global packages to create and run base application feel free to add your own packages here
 nodeapp_npm:
   - forever
-  - initd-forever
+  - git+https://github.com/vevmesteren/initd-forever.git
 
 
 #### License
