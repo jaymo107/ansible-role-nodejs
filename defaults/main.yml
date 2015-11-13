@@ -9,4 +9,4 @@ nodeapps:
 
 nodeapp_npm:
   - forever
-  - initd-forever 
+  - git+https://github.com/vevmesteren/initd-forever.git
