@@ -51,7 +51,7 @@
   when: appexists|failed
   
 - name: If nodejs app doest not exist in destination directory, copy default package.json
-  copy: src=package.json dest={{item.dir}}{{item.app}}
+  copy: src=package.json dest={{item.dir}}package.json
   with_items: "{{nodeapps}}"
   ignore_errors: yes
   when: appexists|failed
