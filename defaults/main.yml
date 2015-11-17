@@ -5,7 +5,7 @@ node_env: 'development'
 nodeapp_chdir: '/'
 
 nodeapps:
-  - { id: 'nodeapp', path: '/home/nodeapp/', app: 'server.js' }
+  - { id: 'nodeapp', dir: '/home/nodeapp/', app: 'server.js' }
 
 nodeapp_npm:
   - forever
