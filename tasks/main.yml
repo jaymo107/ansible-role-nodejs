@@ -44,14 +44,14 @@
   with_items: "{{nodeapps}}"
   when: appexists|failed
   
-- name: If nodejs app doesn't not exist in destination directory, make a soft link to server.js
-  file: src={{item.app}} dest={{item.dir}}{{item.app}} state=link
+- name: If nodejs app doesn't not exist in destination directory, copy default server.js
+  copy: src={{item.app}} dest={{item.dir}}{{item.app}}
   with_items: "{{nodeapps}}"
   ignore_errors: yes
   when: appexists|failed
   
-- name: If nodejs app doest not exist in destination directory, make a soft link to package.json
-  file: src=package.json dest={{item.dir}}{{item.app}} state=link
+- name: If nodejs app doest not exist in destination directory, copy default package.json
+  copy: src=package.json dest={{item.dir}}{{item.app}}
   with_items: "{{nodeapps}}"
   ignore_errors: yes
   when: appexists|failed
