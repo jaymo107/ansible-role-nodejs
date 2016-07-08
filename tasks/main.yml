@@ -1,13 +1,13 @@
 ---
 - name: install python-pycurl
-  sudo: yes
+  become: true
   apt: pkg=python-pycurl
 
 - name: install node 5 Repo
   shell: curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 
 - name: install node
-  sudo: true
+  become: true
   apt: name=nodejs
 
 - name: fix nodejs binary path on ubuntu
@@ -21,7 +21,7 @@
   when: nodejs.npmrc|length > 0
 
 - name: add `./node_modules/.bin` to PATH
-  sudo: true
+  become: true
   copy: >
     content='export PATH="./node_modules/.bin:$PATH"'
     dest=/etc/profile.d/nodejs_path.sh
@@ -75,5 +75,5 @@
 
 - name: add new files to startup process
   command: update-rc.d {{item.id}} defaults 90
-  sudo: true
+  become: true
   with_items: "{{nodeapps}}"
