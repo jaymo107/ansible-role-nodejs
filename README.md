@@ -9,7 +9,7 @@ An Ansible role that installs nodejs and runs default or your application on Ubu
 Node packages come from here; https://github.com/nodesource/distributions
 
 ### Dependencies
-git 
+git - https://github.com/geerlingguy/ansible-role-git
 
 #### Role Variables
 

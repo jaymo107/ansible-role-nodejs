@@ -1,6 +1,7 @@
 nodejs:
   add_node_modules_bin_to_path: false
   npmrc: {}
+  
 node_env: 'development'
 nodeapp_chdir: '/'
 
