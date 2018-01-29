@@ -1,14 +1,21 @@
 ---
 - name: install python-pycurl
-  sudo: yes
+  become: true
+  update_cache: yes
   apt: pkg=python-pycurl
 
-- name: install node 5 Repo
-  shell: curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+- name: install node 9 Repo
+  shell: get_url -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 
 - name: install node
-  sudo: true
+  become: true
+  update_cache: yes
   apt: name=nodejs
+
+- name: install npm
+  become: true
+  update_cache: yes
+  apt: name=npm
 
 - name: fix nodejs binary path on ubuntu
   file: src=/usr/bin/nodejs dest=/usr/bin/node state=link
@@ -21,7 +28,7 @@
   when: nodejs.npmrc|length > 0
 
 - name: add `./node_modules/.bin` to PATH
-  sudo: true
+  become: true
   copy: >
     content='export PATH="./node_modules/.bin:$PATH"'
     dest=/etc/profile.d/nodejs_path.sh
@@ -30,32 +37,33 @@
 
 - name: install required global npm packages
   npm: name={{item}} global=yes
-  with_items: nodeapp_npm
+  with_items:
+      - "{{ nodeapp_npm }}"
 
 - name: Does the nodejs application folder exist?
   command: ls {{nodeapp_chdir}}{{item.dir}}/{{item.app}}
   ignore_errors: yes
   with_items: "{{nodeapps}}"
   register: appexists
-  
+
 
 - name: If App does not exist create directory
   file: path={{item.dir}} state=directory
   with_items: "{{nodeapps}}"
   when: appexists|failed
-  
+
 - name: If nodejs app doesn't not exist in destination directory, copy default server.js
   copy: src={{item.app}} dest={{item.dir}}{{item.app}}
   with_items: "{{nodeapps}}"
   ignore_errors: yes
   when: appexists|failed
-  
+
 - name: If nodejs app doest not exist in destination directory, copy default package.json
   copy: src=package.json dest={{item.dir}}package.json
   with_items: "{{nodeapps}}"
   ignore_errors: yes
   when: appexists|failed
-  
+
 - name: Install Node applications packages.json
   npm: path={{ item.dir }}
   with_items:
@@ -75,5 +83,5 @@
 
 - name: add new files to startup process
   command: update-rc.d {{item.id}} defaults 90
-  sudo: true
+  become: true
   with_items: "{{nodeapps}}"
