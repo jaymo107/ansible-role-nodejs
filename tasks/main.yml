@@ -3,8 +3,8 @@
   sudo: yes
   apt: pkg=python-pycurl
 
-- name: install node 5 Repo
-  shell: curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+- name: install node 9 Repo
+  shell: curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 
 - name: install node
   sudo: true
