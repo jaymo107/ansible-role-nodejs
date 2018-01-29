@@ -1,7 +1,7 @@
 #nodejs - forever - initd-forever
 ================================
 
-An Ansible role that installs nodejs and runs default or your application on Ubuntu 12.04 - 16.04
+An Ansible role that installs nodejs and runs default or your application on Ubuntu 12.04 - 17.10
 
 - If you just want to test Node, this role got you covered, it comes with a simple Hello World app
 - NodeJS is added as service (using NPM packages) allowing you to service start|stop it
